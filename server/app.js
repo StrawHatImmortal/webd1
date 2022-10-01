@@ -7,6 +7,8 @@ dotenv.config({path: './.env'});
 const PORT = process.env.PORT;
 
 require('./db/conn')
+const User = require('./models/userschema');
+
 const middleware = (req,res,next)=>{
     console.log('Middleware');
     next();
