@@ -6,8 +6,13 @@ const app = express();
 dotenv.config({path: './.env'});
 const PORT = process.env.PORT;
 
-require('./db/conn')
-const User = require('./models/userschema');
+require('./db/conn');
+// const User = require('./models/userschema');
+
+app.use(express.json()); 
+
+// we link the router files to make our route easy
+app.use(require('./router/auth'));
 
 const middleware = (req,res,next)=>{
     console.log('Middleware');
@@ -23,16 +28,17 @@ app.get('/about', middleware, (req,res)=>{
 });
 
 app.get('/contact',(req,res)=>{
+    res.cookie("Test",'sneh');
     res.send('Hello u can contact me by mail snehshah1675@gmail.com');
 });
 
-app.get('/login', (req,res)=>{
-    res.send('Hello users please login to continue.');
-});
+// app.get('/login', (req,res)=>{
+//     res.send('Hello users please login to continue.');
+// });
 
-app.get('/register',(req,res)=>{
-    res.send('New users register here to continue');
-})
+// app.get('/register',(req,res)=>{
+//     res.send('New users register here to continue');
+// })
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`);
 })
